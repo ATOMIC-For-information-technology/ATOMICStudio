@@ -303,12 +303,9 @@ body {
   margin-bottom: 32px;
 }
 .welcome-mark {
-  width: 34px;
-  height: 34px;
   flex-shrink: 0;
-  border-radius: 50%;
-  background: var(--accent);
-  margin-top: 4px;
+  color: var(--text);
+  margin-top: -2px;
 }
 .welcome-title {
   margin: 0;
@@ -3048,13 +3045,8 @@ body {
   -webkit-app-region: drag;
 }
 .brand-mark {
-  width: 16px;
-  height: 16px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--accent);
   flex-shrink: 0;
+  color: var(--text);
 }
 /* The old round accent dot: a bare coloured circle in the chrome reads as a status light, and this
    app's own icon rules say a filled dot means "in progress". The mark is the product's atom now. */

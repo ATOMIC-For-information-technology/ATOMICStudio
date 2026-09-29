@@ -42,6 +42,7 @@ import { MediaPanel } from './components/MediaPanel'
 import { runPreviewControl } from './preview-control'
 import { ColumnResizer } from './components/ColumnResizer'
 import { PaneResizer } from './components/PaneResizer'
+import { AtomicMark } from './components/AtomicMark'
 import type {
   CanvasError,
   CanvasSelection,
@@ -1968,9 +1969,7 @@ export function App(): React.JSX.Element {
     <div className="app">
       <header className="topbar">
         <div className="brand">
-          <span className="brand-mark">
-            <Icon name="atom" size={15} />
-          </span>
+          <AtomicMark size={20} className="brand-mark" />
           ATOMIC Studio
         </div>
 

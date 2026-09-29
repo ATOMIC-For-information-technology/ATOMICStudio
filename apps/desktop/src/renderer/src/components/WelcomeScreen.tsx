@@ -1,5 +1,6 @@
 import React from 'react'
 import { Icon, type IconName } from './Icon'
+import { AtomicMark } from './AtomicMark'
 import { formatRelativeDate } from '../format'
 import { key } from '../keys'
 import type { RecentProject } from '../App'
@@ -107,7 +108,7 @@ export function WelcomeScreen({
   return (
     <div className="welcome-screen">
       <div className="welcome-head">
-        <span className="welcome-mark" aria-hidden="true" />
+        <AtomicMark size={48} className="welcome-mark" />
         <div>
           <h1 className="welcome-title">ATOMIC Studio</h1>
           {/* States the wedge, not a slogan. Every clause is something the app actually does: the
