@@ -23,7 +23,7 @@ See [FEATURES.md](FEATURES.md) for the full list and [ROADMAP.md](ROADMAP.md) fo
 Requirements: Node.js 20+, macOS / Windows / Linux.
 
 ```bash
-git clone https://github.com/atomic-limited/ATOMICStudio.git
+git clone https://github.com/ATOMIC-For-information-technology/ATOMICStudio.git
 cd ATOMICStudio
 npm install
 npm run dev
