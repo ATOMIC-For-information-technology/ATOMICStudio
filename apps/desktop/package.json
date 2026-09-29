@@ -1,0 +1,89 @@
+{
+  "name": "@atomic-studio/desktop",
+  "version": "0.0.0",
+  "private": true,
+  "description": "ATOMIC Studio desktop app (Electron)",
+  "main": "./out/main/index.js",
+  "author": "ATOMIC",
+  "scripts": {
+    "dev": "node scripts/dev-next.cjs",
+    "build": "electron-vite build --ignoreConfigWarning && next build src/renderer && node scripts/copy-next-renderer.cjs",
+    "preview": "electron-vite preview",
+    "typecheck": "tsc --noEmit -p tsconfig.node.json && tsc --noEmit -p tsconfig.web.json",
+    "test:ui": "npm run build && electron scripts/test-ui.cjs",
+    "test:agent": "electron scripts/test-agent.cjs",
+    "pack": "npm run build && electron-builder --dir",
+    "dist": "npm run build && electron-builder",
+    "rebuild:native": "electron-rebuild -f -w node-pty",
+    "postinstall": "electron-rebuild -f -w node-pty || echo \"node-pty rebuild skipped \u2014 the Terminal panel will report it as unavailable\"",
+    "install:mac": "npm run dist && node scripts/install-mac.cjs",
+    "icons": "python3 scripts/make-icons.py",
+    "dist:win": "npm run build && electron-builder --win zip --x64 -c.win.signAndEditExecutable=false"
+  },
+  "build": {
+    "appId": "limited.atomic.studio",
+    "productName": "ATOMIC Studio",
+    "electronVersion": "31.7.7",
+    "npmRebuild": false,
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "out/**/*",
+      "package.json",
+      "node_modules/node-pty/**"
+    ],
+    "asarUnpack": [
+      "**/node_modules/@atomic-studio/inspector-plugin/**",
+      "**/node_modules/node-pty/**"
+    ],
+    "mac": {
+      "target": "dir",
+      "identity": null,
+      "icon": "build/icon.icns"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.ico",
+      "files": [
+        "out/**/*",
+        "package.json",
+        "!node_modules/node-pty/**"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "build/icon.png"
+    },
+    "afterPack": "scripts/adhoc-sign.cjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.71.0",
+    "@atomic-studio/inspector-plugin": "*",
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "@monaco-editor/react": "^4.7.0",
+    "@xterm/addon-fit": "^0.10.0",
+    "@xterm/xterm": "^5.5.0",
+    "monaco-editor": "^0.52.2",
+    "node-pty": "^1.0.0",
+    "openai": "^4.77.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "electron": "^31.0.0",
+    "electron-builder": "^24.13.3",
+    "electron-vite": "^2.3.0",
+    "next": "^16.3.4",
+    "typescript": "^5.5.0",
+    "vite": "^5.3.0"
+  }
+}

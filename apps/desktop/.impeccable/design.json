@@ -1,0 +1,127 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-04T23:38:34Z",
+  "title": "Design System: ATOMIC Studio",
+  "extensions": {
+    "colorMeta": {
+      "void-black": { "role": "neutral", "displayName": "Void Black", "canonical": "#0f1115", "tonalRamp": ["#20242d", "#3c4353", "#556077", "#707e99", "#949eb3", "#b5bcca", "#d2d7df", "#f0f2f4"] },
+      "console-panel": { "role": "neutral", "displayName": "Console Panel", "canonical": "#171a21", "tonalRamp": ["#1f242d", "#3b4254", "#545f78", "#6f7c9a", "#939db4", "#b4bbcb", "#d2d6e0", "#f0f1f5"] },
+      "raised-console": { "role": "neutral", "displayName": "Raised Console", "canonical": "#1e222b", "tonalRamp": ["#1f242d", "#3b4354", "#545f78", "#6f7c9a", "#939db4", "#b4bbcb", "#d2d6e0", "#f0f1f5"] },
+      "hairline-steel": { "role": "neutral", "displayName": "Hairline Steel", "canonical": "#2a2f3a", "tonalRamp": ["#20242c", "#3c4353", "#566076", "#717d98", "#959eb2", "#b5bbc9", "#d3d6df", "#f0f1f4"] },
+      "signal-white": { "role": "neutral", "displayName": "Signal White", "canonical": "#e6e9ef", "tonalRamp": ["#1e232f", "#384257", "#505f7c", "#6a7c9f", "#8f9cb7", "#b1bbcd", "#d0d6e1", "#eff1f5"] },
+      "instrument-gray": { "role": "neutral", "displayName": "Instrument Gray", "canonical": "#8b93a3", "tonalRamp": ["#22252b", "#3f4550", "#5a6272", "#768093", "#99a0ae", "#b8bdc7", "#d4d7dd", "#f1f2f4"] },
+      "telemetry-blue": { "role": "primary", "displayName": "Telemetry Blue", "canonical": "#3b82f6", "tonalRamp": ["#031e49", "#063889", "#0950c3", "#156af4", "#4f8ff7", "#85b1f9", "#b6d0fc", "#e7effe"] },
+      "telemetry-blue-deep": { "role": "primary", "displayName": "Telemetry Blue Deep", "canonical": "#2563eb", "tonalRamp": ["#061a46", "#0c3183", "#1146bb", "#1f5fea", "#5787f0", "#8aabf4", "#b9cdf9", "#e8eefd"] },
+      "go-green": { "role": "status-success", "displayName": "Go Green", "canonical": "#22c55e", "tonalRamp": ["#0b411f", "#157a3a", "#1eae53", "#2edb6e", "#62e492", "#92ecb3", "#bef4d2", "#e9fbf0"] },
+      "abort-red": { "role": "status-danger", "displayName": "Abort Red", "canonical": "#ef4444", "tonalRamp": ["#460606", "#840b0b", "#bc1010", "#ec1d1d", "#f15656", "#f58a8a", "#f9b9b9", "#fde8e8"] },
+      "caution-amber": { "role": "status-warning", "displayName": "Caution Amber", "canonical": "#f59e0b", "tonalRamp": ["#492f03", "#895806", "#c47e08", "#f5a214", "#f8b94f", "#face85", "#fce2b6", "#fef5e7"] }
+    },
+    "typographyMeta": {
+      "title": { "displayName": "Title", "purpose": "Section/panel titles — the Mission Hero's objective line, modal titles." },
+      "icon": { "displayName": "Icon", "purpose": "Rail-style plain-glyph icons (activity bar) — sized for click comfort, not a text role." },
+      "body": { "displayName": "Body", "purpose": "The base UI size — buttons, form fields, primary labels." },
+      "body-sm": { "displayName": "Body Small", "purpose": "Secondary body text — list-row detail, section descriptions." },
+      "label": { "displayName": "Label", "purpose": "Section kickers and status-row labels, uppercase." },
+      "meta": { "displayName": "Meta", "purpose": "The smallest text — timestamps, chip labels, fine print." },
+      "mono": { "displayName": "Mono", "purpose": "File paths, code, terminal output, timestamps, technical/literal values." }
+    },
+    "shadows": [
+      { "name": "ambient-card", "value": "0 1px 6px rgba(0,0,0,0.2)", "purpose": "Barely-there depth for elements that sit slightly above their row (artifact cards)." },
+      { "name": "floating-panel", "value": "0 4px 16px rgba(0,0,0,0.3)", "purpose": "The Mission Hero and similar elevated-but-inline elements." },
+      { "name": "overlay-modal", "value": "0 12px 40px rgba(0,0,0,0.45)", "purpose": "Standard modal / command-palette elevation." },
+      { "name": "overlay-deep", "value": "0 24px 64px rgba(0,0,0,0.6)", "purpose": "The largest true overlays." }
+    ],
+    "motion": [
+      { "name": "ease-standard", "value": "ease", "purpose": "Default transition easing across hover/focus/collapse states." },
+      { "name": "duration-fast", "value": "0.15s", "purpose": "Hover/focus color and background transitions." },
+      { "name": "duration-entrance", "value": "0.2s-0.25s", "purpose": "Entrance fades/slides for newly-arrived content (messages, timeline rows, modals) — must respect prefers-reduced-motion." }
+    ],
+    "breakpoints": []
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one filled/high-emphasis button style — used sparingly, one per view where possible.",
+      "html": "<button class=\"ds-btn-primary\">Apply</button>",
+      "css": ".ds-btn-primary { background: #3b82f6; color: #e6e9ef; border: none; border-radius: 6px; padding: 6px 14px; font-size: 13px; font-weight: 500; cursor: pointer; transition: background 0.15s ease; } .ds-btn-primary:hover { background: #2563eb; } .ds-btn-primary:focus-visible { outline: 2px solid #3b82f6; outline-offset: 2px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "The default button — bordered, transparent background, used for nearly everything else.",
+      "html": "<button class=\"ds-btn-secondary\">Reject</button>",
+      "css": ".ds-btn-secondary { background: transparent; color: #8b93a3; border: 1px solid #2a2f3a; border-radius: 6px; padding: 6px 14px; font-size: 13px; cursor: pointer; transition: background 0.15s ease, color 0.15s ease; } .ds-btn-secondary:hover { background: #1e222b; color: #e6e9ef; } .ds-btn-secondary:focus-visible { outline: 2px solid #3b82f6; outline-offset: 2px; }"
+    },
+    {
+      "name": "Status Chip — Go",
+      "kind": "chip",
+      "refersTo": "status-chip-go",
+      "description": "Low-opacity tint background, full-opacity status text — the pattern every status chip in the app follows.",
+      "html": "<span class=\"ds-chip-go\">✓ Verified</span>",
+      "css": ".ds-chip-go { display: inline-flex; align-items: center; gap: 4px; background: rgba(34,197,94,0.16); color: #86efac; font-size: 10px; font-weight: 700; padding: 1px 9px; border-radius: 999px; white-space: nowrap; }"
+    },
+    {
+      "name": "Status Chip — Abort",
+      "kind": "chip",
+      "refersTo": "status-chip-abort",
+      "description": "The failure/danger variant of the same chip pattern.",
+      "html": "<span class=\"ds-chip-abort\">✕ Failed</span>",
+      "css": ".ds-chip-abort { display: inline-flex; align-items: center; gap: 4px; background: rgba(239,68,68,0.18); color: #fca5a5; font-size: 10px; font-weight: 700; padding: 1px 9px; border-radius: 999px; white-space: nowrap; }"
+    },
+    {
+      "name": "Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "The base container — flat, bordered, 8px radius. Add ambient-card shadow only when the card should feel lifted.",
+      "html": "<div class=\"ds-card\"><div class=\"ds-card-title\">src/main.tsx</div><div class=\"ds-card-body\">+12 −3</div></div>",
+      "css": ".ds-card { background: #171a21; border: 1px solid #2a2f3a; border-radius: 8px; padding: 10px 12px; } .ds-card:hover { background: #1e222b; } .ds-card-title { font-family: ui-monospace, Menlo, monospace; font-size: 11px; color: #e6e9ef; margin-bottom: 4px; } .ds-card-body { font-size: 11px; color: #8b93a3; }"
+    },
+    {
+      "name": "Input Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Text input — console-panel background, hairline border, telemetry-blue focus border with no glow.",
+      "html": "<input class=\"ds-input\" type=\"text\" placeholder=\"API key\" />",
+      "css": ".ds-input { background: #171a21; color: #e6e9ef; border: 1px solid #2a2f3a; border-radius: 6px; padding: 6px 10px; font-size: 13px; font-family: inherit; } .ds-input:focus { outline: none; border-color: #3b82f6; } .ds-input::placeholder { color: #8b93a3; }"
+    },
+    {
+      "name": "Nav Tab (active)",
+      "kind": "nav",
+      "refersTo": "nav-tab-active",
+      "description": "The shared toggled/active-state treatment used across the topbar, activity bar, and every internal tab strip.",
+      "html": "<button class=\"ds-tab ds-tab-active\">Agent</button>",
+      "css": ".ds-tab { background: transparent; color: #8b93a3; border: 1px solid transparent; border-radius: 6px; padding: 5px 12px; font-size: 12px; cursor: pointer; } .ds-tab-active { background: rgba(59,130,246,0.15); color: #93c5fd; border-color: rgba(59,130,246,0.4); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Mission Control",
+    "overview": "ATOMIC Studio reads as a cockpit, not a canvas: a dark instrument panel where every signal is real, every status has an honest color, and nothing moves or flashes without a reason. The system is built for two crews at once — a non-coder pilot who needs the console to never lie to them, and a professional engineer who needs it to be fast and dense when they want it to be. Both get the same panel; density and jargon flex, honesty and calm never do. This isn't decorative sci-fi chrome. \"Mission Control\" is a discipline: status colors mean exactly one thing each (green is genuinely safe, red is genuinely wrong, amber is genuinely a warning — never used for emphasis or decoration), motion is reserved for things that are actually changing, and the interface holds still between changes instead of rearranging itself for novelty's sake.",
+    "keyCharacteristics": [
+      "Dark, low-chroma base with exactly one accent hue (telemetry blue) — color is a signal, not decoration",
+      "Flat at rest; shadows appear only on things that are genuinely floating above the base layer",
+      "Plain system fonts and plain emoji/unicode glyphs — no icon font, no illustration system",
+      "Status semantics borrowed from real instrumentation: go/no-go green and red, caution amber, never repurposed"
+    ],
+    "rules": [
+      { "name": "The Go/No-Go Rule", "body": "go-green, abort-red, and caution-amber mean exactly one thing each — success/safe, failure/dangerous, needs-attention — everywhere in the app, with no exceptions for emphasis or decoration.", "section": "colors" },
+      { "name": "The No-Decoration Type Rule", "body": "Weight and the uppercase-kicker treatment carry hierarchy — never font-family switching, never italics, never a display face.", "section": "typography" },
+      { "name": "The Altitude Rule", "body": "Shadow size is a direct, honest signal of how far above the base plane something sits — never applied for decoration, and never on anything that's actually flat/in-flow.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do reserve go-green/abort-red/caution-amber for literal status only",
+      "Do keep every card and panel bordered in hairline-steel, with or without a shadow",
+      "Do respect prefers-reduced-motion for every looping/infinite animation",
+      "Do make every interactive element keyboard-operable with a real <button>/aria-expanded",
+      "Do let motion mean something — always reporting a real state change"
+    ],
+    "donts": [
+      "Don't introduce a second accent color",
+      "Don't use drop shadows on anything that's actually flat/in-flow",
+      "Don't add an icon font, SVG icon library, or illustration system",
+      "Don't show a UI element that claims something the app can't back up"
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "@atomic-studio/inspector-plugin",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Stamps source location onto JSX elements so the live preview can map a click back to the exact code.",
+  "main": "babel-plugin.cjs",
+  "exports": {
+    "./babel": "./babel-plugin.cjs",
+    "./vite": "./vite-plugin.cjs",
+    "./run-vite": "./run-vite.mjs"
+  },
+  "dependencies": {
+    "@babel/core": "^7.24.0"
+  }
+}

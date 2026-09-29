@@ -1,0 +1,20 @@
+{
+  "name": "atomic-studio",
+  "version": "0.0.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "description": "ATOMIC Studio \u2014 a visual, AI-native app builder for non-coders (Phase 0)",
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "examples/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace apps/desktop",
+    "build": "npm run build --workspace apps/desktop",
+    "test:gitserver": "node server/test-gitserver.mjs"
+  },
+  "devDependencies": {
+    "@electron/rebuild": "^3.7.2"
+  }
+}

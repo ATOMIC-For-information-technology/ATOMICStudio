@@ -1,0 +1,33 @@
+# systemd unit for the ATOMIC control plane.
+# Install: deploy-workspaced.sh handles this for you.
+#
+# ExecStart points at /usr/local/lib/atomic, NOT /usr/local/bin: atomic-workspaced.mjs imports
+# ./atomic-oidc.mjs, ./atomic-git-acl.mjs and ./atomic-git-cert.mjs as siblings, and node resolves
+# those from the script's own directory. Installing the daemon alone into bin/ made the unit fail
+# with ERR_MODULE_NOT_FOUND before it ever bound a port.
+#
+# User=git, not a separate service account: this process creates the bare repositories that sshd's
+# forced command then serves, writes the generated authorized_keys, and signs with the CA key. One
+# owner for all of it is the only arrangement in which those permissions work out on a real box.
+[Unit]
+Description=ATOMIC control plane (workspaces + self-hosted git)
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/node /usr/local/lib/atomic/atomic-workspaced.mjs
+EnvironmentFile=/etc/atomic-workspaced.env
+Restart=always
+RestartSec=3
+User=git
+Group=git
+UMask=0027
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=read-only
+PrivateTmp=true
+# Everything this process must be able to write. /home/git/.ssh is here because the generated
+# authorized_keys IS the access control for the data plane, and ProtectHome=read-only covers it.
+ReadWritePaths=/srv/atomic /home/git/.ssh
+
+[Install]
+WantedBy=multi-user.target
