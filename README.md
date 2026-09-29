@@ -16,7 +16,7 @@ Click any element in your live app, describe the change in plain English, approv
 [![Discussions](https://img.shields.io/github/discussions/ATOMIC-For-information-technology/ATOMICStudio?color=001536)](https://github.com/ATOMIC-For-information-technology/ATOMICStudio/discussions)
 [![Stars](https://img.shields.io/github/stars/ATOMIC-For-information-technology/ATOMICStudio?style=social)](https://github.com/ATOMIC-For-information-technology/ATOMICStudio/stargazers)
 
-[**Quick start**](#-quick-start) · [**Watch the 60-second demo**](docs/media/atomic-studio-promo.mp4) · [**Contribute**](#-contributing) · [**Roadmap**](ROADMAP.md)
+[**Quick start**](#-quick-start) · [**Contribute**](#-contributing) · [**Roadmap**](ROADMAP.md)
 
 <br>
 
@@ -59,8 +59,6 @@ Most AI coding tools start from the code. ATOMIC Studio starts from **the thing 
     <td><img src=".github/assets/02-providers.jpg" alt="AI provider keys in settings"><br><b>Bring any model.</b> Paste a key once — or run offline with Ollama in Air-Gapped Mode.</td>
   </tr>
 </table>
-
-<p align="center">🎬 <b>Watch the full demo:</b> <a href="docs/media/atomic-studio-promo.mp4">landscape (60 s)</a> · <a href="docs/media/atomic-studio-promo-vertical.mp4">vertical for mobile</a></p>
 
 ## 🚀 Quick start
 
