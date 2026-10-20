@@ -223,6 +223,7 @@ function resolveStampPaths(): { runner: string; stamp: string } | null {
 function detectFramework(deps: Record<string, string>): DetectedFramework {
   if (deps.expo) return 'expo'
   if (deps.next) return 'next'
+  if (deps['@angular/core'] || deps['@angular/cli']) return 'angular'
   if (deps.vite || deps['@vitejs/plugin-react']) return 'vite'
   if (deps.vue) return 'vue'
   if (deps.svelte) return 'svelte'

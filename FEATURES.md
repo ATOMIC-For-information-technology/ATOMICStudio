@@ -18,7 +18,7 @@
 | Feature | What it does | Why it matters |
 |---|---|---|
 | Multi-device preview | Your running app in Desktop/iPhone/iPad frames + real iOS Simulator | See it everywhere at once |
-| Click-to-edit | Click any element in the live app → describe a change → AI edits the source | React, Next.js, Vue, Svelte — zero setup |
+| Click-to-edit | Click any element in the live app → describe a change → AI edits the source | React, Next.js, Vue, Svelte, Angular — zero setup |
 | Static-site preview | Any HTML folder previews via a built-in live-reload server | "Any website folder just works" |
 | Self-healing auto-fix | Runtime errors in the preview are captured and auto-repaired | Non-coders never see a stack trace |
 

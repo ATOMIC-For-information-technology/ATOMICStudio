@@ -53,6 +53,7 @@ export type DetectedFramework =
   | 'react'
   | 'vue'
   | 'svelte'
+  | 'angular'
   | 'static-html'
   | 'unknown'
 

@@ -1,0 +1,19 @@
+<div class="container" style="font-family: system-ui, sans-serif; padding: 40px; text-align: center; max-width: 600px; margin: 0 auto;">
+  <h1 style="color: #dd0031;">Hello from Angular in ATOMIC Studio 👋</h1>
+  <p style="color: #4b5563; line-height: 1.5;">
+    Click any element in the preview to select its source location in the editor.
+  </p>
+  <div class="counter-box" style="margin: 20px 0; padding: 16px; background: #fff1f2; border-radius: 8px;">
+    <p style="margin-bottom: 12px; font-weight: 500;">
+      Current clicks: <span style="font-weight: 700; color: #dd0031;">{{ count }}</span>
+    </p>
+    <button
+      type="button"
+      (click)="increment()"
+      style="padding: 10px 20px; font-size: 16px; background: #dd0031; color: white; border: none; border-radius: 6px; cursor: pointer;"
+    >
+      Click me
+    </button>
+  </div>
+  <app-inline-card></app-inline-card>
+</div>

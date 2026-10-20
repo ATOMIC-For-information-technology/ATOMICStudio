@@ -9,6 +9,7 @@
  */
 const babel = require('@babel/core')
 const stampPlugin = require('./babel-plugin.cjs')
+const { transformAngular } = require('./angular-template-plugin.cjs')
 
 module.exports = function inspectorVitePlugin(opts = {}) {
   const projectRoot = opts.projectRoot || process.cwd()
@@ -18,8 +19,23 @@ module.exports = function inspectorVitePlugin(opts = {}) {
     apply: 'serve', // dev only
     async transform(code, id) {
       const clean = id.split('?')[0]
-      if (!/\.[jt]sx$/.test(clean)) return null
       if (clean.includes('node_modules')) return null
+
+      // 1. Angular external templates (.component.html or .html) and inline templates in .ts
+      if (/\.(?:component\.html|html|ts)$/i.test(clean) && !/\.[jt]sx$/i.test(clean) && !/\.d\.ts$/i.test(clean)) {
+        try {
+          const angularResult = transformAngular(code, clean, projectRoot)
+          if (angularResult) {
+            return { code: angularResult, map: null }
+          }
+        } catch {
+          // Fall through untouched if Angular transform fails
+        }
+        if (!/\.[jt]sx$/.test(clean)) return null
+      }
+
+      // 2. React / JSX / TSX
+      if (!/\.[jt]sx$/.test(clean)) return null
       try {
         const result = await babel.transformAsync(code, {
           filename: clean,

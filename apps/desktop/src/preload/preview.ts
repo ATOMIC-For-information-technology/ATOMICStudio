@@ -105,10 +105,53 @@ const PAGE_WORLD_PICKER = `(() => {
     return null
   }
 
+  // Angular dev: window.ng or el.__ngContext__ reveals owning component and debugInfo.
+  function angularSource(el) {
+    var comp = null
+    if (window.ng && typeof window.ng.getOwningComponent === 'function') {
+      try {
+        comp = window.ng.getOwningComponent(el) || (typeof window.ng.getComponent === 'function' ? window.ng.getComponent(el) : null)
+      } catch (e) {
+        comp = null
+      }
+    }
+    if (!comp && el.__ngContext__) {
+      var ctx = el.__ngContext__
+      if (Array.isArray(ctx)) {
+        comp = ctx[8] || null
+        if (!comp || typeof comp !== 'object') {
+          for (var i = 0; i < ctx.length; i++) {
+            if (ctx[i] && typeof ctx[i] === 'object' && ctx[i].constructor && (ctx[i].constructor.ɵcmp || ctx[i].constructor.ɵfac)) {
+              comp = ctx[i]
+              break
+            }
+          }
+        }
+      } else if (typeof ctx === 'object') {
+        comp = ctx.component || ctx
+      }
+    }
+    if (!comp || typeof comp !== 'object') return null
+
+    var ctor = comp.constructor
+    if (!ctor) return null
+
+    var cmpDef = ctor.ɵcmp || ctor.ɵdir || null
+    var debugInfo = (cmpDef && cmpDef.debugInfo) || ctor.debugInfo || null
+
+    var file = (debugInfo && (debugInfo.filePath || debugInfo.file)) || ctor.__file || (cmpDef && cmpDef.type && cmpDef.type.__file) || null
+    if (!file || typeof file !== 'string') return null
+
+    var line = (debugInfo && (debugInfo.lineNumber || debugInfo.line)) || 0
+    var name = (cmpDef && cmpDef.type && cmpDef.type.name) || ctor.name || (el.tagName ? el.tagName.toLowerCase() : 'component')
+
+    return { file: file, line: Number(line) || 0, name: name }
+  }
+
   function anySource(start) {
     var el = start
     while (el && el !== document.body) {
-      var sel = svelteSource(el) || fiberSource(el) || vueSource(el)
+      var sel = svelteSource(el) || fiberSource(el) || vueSource(el) || angularSource(el)
       if (sel) return sel
       el = el.parentElement
     }

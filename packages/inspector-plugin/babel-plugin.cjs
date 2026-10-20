@@ -40,6 +40,7 @@ module.exports = function inspectorBabelPlugin({ types: t }) {
         const root = state.opts.projectRoot || state.file.opts.root || process.cwd()
         let file = state.filename || state.file.opts.filename || ''
         if (file && isAbsolute(file) && root) file = relative(root, file)
+        file = file.replace(/\\/g, '/')
 
         const mk = (key, value) =>
           t.jsxAttribute(t.jsxIdentifier(key), t.stringLiteral(String(value)))

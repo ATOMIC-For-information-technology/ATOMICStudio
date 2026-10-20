@@ -2731,6 +2731,7 @@ async function run() {
       <button id="fb" style="padding:20px">Fiber button</button>
       <button id="sv" style="padding:20px">Svelte button</button>
       <button id="vu" style="padding:20px">Vue button</button>
+      <button id="ng" style="padding:20px">Angular button</button>
       <script>
         function FakeButton() {}
         var el = document.getElementById('fb');
@@ -2742,6 +2743,17 @@ async function run() {
         // Vue 3 dev-mode shape
         document.getElementById('vu').__vueParentComponent = {
           parent: null, type: { __file: '/fake/src/Header.vue', name: 'AppHeader' }
+        };
+        // Angular dev-mode shape
+        function AngularButton() {}
+        AngularButton.ɵcmp = {
+          type: AngularButton,
+          debugInfo: { filePath: 'src/app/button.component.ts', lineNumber: 14 }
+        };
+        window.ng = {
+          getOwningComponent: function(node) {
+            return node.id === 'ng' ? new AngularButton() : null;
+          }
         };
       </script></body></html>`
     )
@@ -2788,9 +2800,12 @@ async function run() {
     const vue = await pick('vu')
     if (!vue.includes('AppHeader') || !vue.includes('/fake/src/Header.vue'))
       throw new Error(`vue chip = "${vue}"`)
+    const angular = await pick('ng')
+    if (!angular.includes('AngularButton') || !angular.includes('src/app/button.component.ts:14'))
+      throw new Error(`angular chip = "${angular}"`)
     await clickByText('.topbar-actions .btn', 'Stop')
     await waitFor(`!document.querySelector('.tab-preview .badge-running')`, { what: 'stopped' })
-    return `svelte: ${svelte} · vue: ${vue}`
+    return `svelte: ${svelte} · vue: ${vue} · angular: ${angular}`
   })
 
   await step('15e. Wave 23: the file tree updates LIVE when a file changes outside the app', async () => {

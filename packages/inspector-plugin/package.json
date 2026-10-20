@@ -7,7 +7,11 @@
   "exports": {
     "./babel": "./babel-plugin.cjs",
     "./vite": "./vite-plugin.cjs",
-    "./run-vite": "./run-vite.mjs"
+    "./run-vite": "./run-vite.mjs",
+    "./angular": "./angular-template-plugin.cjs"
+  },
+  "scripts": {
+    "test": "node test/angular-template-plugin.test.cjs"
   },
   "dependencies": {
     "@babel/core": "^7.24.0"

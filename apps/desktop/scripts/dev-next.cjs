@@ -3,13 +3,18 @@ const http = require('node:http')
 const { resolve } = require('node:path')
 
 const desktopRoot = resolve(__dirname, '..')
-const bin = (name) => resolve(desktopRoot, '..', '..', 'node_modules', '.bin', name)
+const isWin = process.platform === 'win32'
+const bin = (name) => resolve(desktopRoot, '..', '..', 'node_modules', '.bin', isWin ? `${name}.cmd` : name)
 const children = new Set()
 let stopping = false
 
 function run(command, args, env = process.env) {
-  const child = spawn(command, args, { cwd: desktopRoot, env, stdio: 'inherit' })
+  const child = spawn(command, args, { cwd: desktopRoot, env, stdio: 'inherit', shell: isWin })
   children.add(child)
+  child.on('error', (err) => {
+    console.error(`[dev-next] Failed to spawn ${command}:`, err)
+    stop(1)
+  })
   child.once('exit', (code) => {
     children.delete(child)
     if (!stopping && code) stop(code)
@@ -20,7 +25,17 @@ function run(command, args, env = process.env) {
 function stop(code = 0) {
   if (stopping) return
   stopping = true
-  for (const child of children) child.kill('SIGTERM')
+  for (const child of children) {
+    if (isWin && child.pid) {
+      try {
+        require('node:child_process').execSync(`taskkill /pid ${child.pid} /T /F`)
+      } catch {
+        child.kill()
+      }
+    } else {
+      child.kill('SIGTERM')
+    }
+  }
   setTimeout(() => process.exit(code), 100).unref()
 }
 

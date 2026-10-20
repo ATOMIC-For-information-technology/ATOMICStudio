@@ -32,7 +32,7 @@ Most AI coding tools start from the code. ATOMIC Studio starts from **the thing 
 
 | | |
 |---|---|
-| 🎯 **Click-to-edit live preview** | Click any element in your running app (React, Next.js, Vue, Svelte, plain HTML), describe the change, and the AI edits the exact source line. |
+| 🎯 **Click-to-edit live preview** | Click any element in your running app (React, Next.js, Vue, Svelte, Angular, plain HTML), describe the change, and the AI edits the exact source line. |
 | 🛡️ **Trust by default** | Every AI change is a reviewable diff with a confidence score and a build receipt. Plan mode is read-only. One click undoes anything. |
 | 🩹 **Self-healing preview** | Runtime errors are captured and repaired automatically — non-coders never see a stack trace. |
 | 🔑 **Your model, your keys** | Claude, OpenAI, Gemini, Groq, Kimi, Ollama (fully local) or the free ATOMIC Hub. Keys stay in your OS keychain. |
