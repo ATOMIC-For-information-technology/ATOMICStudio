@@ -132,7 +132,7 @@ export class ProcessManager extends EventEmitter {
       this.child = spawn(npmCmd, ['run', devScript], {
         cwd: project.path,
         env: { ...process.env, FORCE_COLOR: '0', BROWSER: 'none' },
-        shell: false
+        shell: process.platform === 'win32'
       })
     }
 
