@@ -302,6 +302,40 @@ body {
   gap: 16px;
   margin-bottom: 32px;
 }
+.welcome-head-text {
+  flex: 1;
+  min-width: 0;
+}
+.welcome-lang-picker {
+  display: inline-flex;
+  align-items: center;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--r-1);
+  padding: 2px;
+  gap: 2px;
+  flex-shrink: 0;
+}
+.welcome-lang-btn {
+  background: transparent;
+  border: 0;
+  border-radius: var(--r-1);
+  padding: 2px 8px;
+  font-size: 11px;
+  font-family: inherit;
+  color: var(--muted);
+  cursor: pointer;
+  transition: background-color 0.1s, color 0.1s;
+}
+.welcome-lang-btn:hover {
+  color: var(--text);
+  background: var(--panel-2);
+}
+.welcome-lang-btn.active {
+  color: var(--text);
+  background: var(--raised, #1e222b);
+  font-weight: 600;
+}
 .welcome-mark {
   flex-shrink: 0;
   color: var(--text);
@@ -339,7 +373,7 @@ body {
   border-radius: var(--r-3);
   color: var(--text);
   font: inherit;
-  text-align: left;
+  text-align: start;
   cursor: pointer;
   transition: background-color 0.12s, border-color 0.12s;
 }
@@ -403,7 +437,7 @@ body {
   background: transparent;
   color: var(--text);
   font: inherit;
-  text-align: left;
+  text-align: start;
   cursor: pointer;
 }
 button.welcome-list-row:hover { background: var(--panel-2); }

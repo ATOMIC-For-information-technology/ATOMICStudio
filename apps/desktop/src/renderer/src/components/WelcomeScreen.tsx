@@ -1,9 +1,9 @@
 import React from 'react'
 import { Icon, type IconName } from './Icon'
 import { AtomicMark } from './AtomicMark'
-import { formatRelativeDate } from '../format'
 import { key } from '../keys'
 import type { RecentProject } from '../App'
+import { useTranslation, type Locale } from '../i18n'
 
 interface Props {
   recents: RecentProject[]
@@ -12,6 +12,19 @@ interface Props {
   onOpenRecent: (path: string) => void
   onCloneRepo: () => void
   onOpenWorkspaces: () => void
+}
+
+/** Formats recent project timestamp according to the active locale. */
+function formatRecentDate(ts: number | undefined, locale: Locale, t: (k: any) => string): string {
+  if (!ts) return ''
+  const day = 24 * 60 * 60 * 1000
+  const startOfDay = (t: number): number => new Date(t).setHours(0, 0, 0, 0)
+  const diffDays = Math.round((startOfDay(Date.now()) - startOfDay(ts)) / day)
+  if (diffDays <= 0) return t('common.today')
+  if (diffDays === 1) return t('common.yesterday')
+  const dateLoc = locale === 'ar' ? 'ar-EG' : undefined
+  if (diffDays < 7) return new Date(ts).toLocaleDateString(dateLoc, { weekday: 'long' })
+  return new Date(ts).toLocaleDateString(dateLoc, { month: 'short', day: 'numeric' })
 }
 
 /** One row shape for the Recent list — icon, label, and a trailing relative date. */
@@ -105,40 +118,60 @@ export function WelcomeScreen({
   onCloneRepo,
   onOpenWorkspaces
 }: Props): React.JSX.Element {
+  const { t, locale, setLocale, dir } = useTranslation()
+
   return (
-    <div className="welcome-screen">
+    <div className="welcome-screen" dir={dir} lang={locale}>
       <div className="welcome-head">
         <AtomicMark size={48} className="welcome-mark" />
-        <div>
-          <h1 className="welcome-title">ATOMIC Studio</h1>
+        <div className="welcome-head-text">
+          <h1 className="welcome-title">{t('welcome.title')}</h1>
           {/* States the wedge, not a slogan. Every clause is something the app actually does: the
               agent reads and runs (gated by `isAgentSafeCommand`), edits in Build mode, and a
               restore point is taken before the run so the whole run undoes in one click (agent.ts). */}
           <p className="welcome-sub">
-            An IDE where the agent can read, run and edit your project — and undo the whole run in one click.
+            {t('welcome.subtitle')}
           </p>
+        </div>
+        <div className="welcome-lang-picker" role="group" aria-label={t('common.language')}>
+          <button
+            type="button"
+            className={`welcome-lang-btn ${locale === 'en' ? 'active' : ''}`}
+            onClick={() => setLocale('en')}
+            title="English"
+          >
+            {t('common.english')}
+          </button>
+          <button
+            type="button"
+            className={`welcome-lang-btn ${locale === 'ar' ? 'active' : ''}`}
+            onClick={() => setLocale('ar')}
+            title="العربية"
+          >
+            {t('common.arabic')}
+          </button>
         </div>
       </div>
 
       <div className="welcome-cards">
         <StartCard
           icon="folder-open"
-          title="Open a project"
-          desc="Point Studio at a folder already on this computer."
+          title={t('welcome.cards.openProject.title')}
+          desc={t('welcome.cards.openProject.desc')}
           hint={key('O')}
           primary
           onClick={onOpenProject}
         />
         <StartCard
           icon="plus"
-          title="Start something new"
-          desc="Scaffold an empty project, then describe what you want built."
+          title={t('welcome.cards.newProject.title')}
+          desc={t('welcome.cards.newProject.desc')}
           onClick={onNewProject}
         />
         <StartCard
           icon="globe"
-          title="Connect to a workspace"
-          desc="Edit a folder on a server over SSH, or an ATOMIC workspace."
+          title={t('welcome.cards.connectWorkspace.title')}
+          desc={t('welcome.cards.connectWorkspace.desc')}
           onClick={onOpenWorkspaces}
         />
       </div>
@@ -146,22 +179,22 @@ export function WelcomeScreen({
       <p className="welcome-clone">
         <Icon name="git-branch" size={13} className="welcome-list-icon" />
         <span>
-          Have a repository URL?{' '}
+          {t('welcome.clone.prompt')}{' '}
           <button type="button" className="welcome-linklike" onClick={onCloneRepo}>
-            Clone a repository…
+            {t('welcome.clone.action')}
           </button>
         </span>
       </p>
 
       <div className="welcome-recent">
-        <div className="welcome-section-head">Recent</div>
+        <div className="welcome-section-head">{t('welcome.recent.title')}</div>
         {recents.length > 0 ? (
           recents.map((r) => (
             <ListRow
               key={r.path}
               icon="folder"
               label={r.name}
-              hint={formatRelativeDate(r.lastOpened)}
+              hint={formatRecentDate(r.lastOpened, locale, t)}
               title={r.path}
               onClick={() => onOpenRecent(r.path)}
             />
@@ -171,9 +204,9 @@ export function WelcomeScreen({
              (the same idle-hero rule the other empty states use). It names what will fill it, so
              the space reads as "nothing yet" rather than "something failed". */
           <div className="welcome-recents-empty">
-            <span className="welcome-recents-empty-title">Nothing here yet</span>
+            <span className="welcome-recents-empty-title">{t('welcome.recent.emptyTitle')}</span>
             <span className="welcome-recents-empty-sub">
-              Folders you open appear here, most recent first.
+              {t('welcome.recent.emptySub')}
             </span>
           </div>
         )}
@@ -181,7 +214,7 @@ export function WelcomeScreen({
 
       <p className="welcome-foot">
         <kbd className="welcome-kbd">{key('P', { shift: true })}</kbd>
-        Everything else lives in the command palette.
+        {t('welcome.footer.commandPalette')}
       </p>
     </div>
   )
